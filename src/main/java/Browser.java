@@ -10,6 +10,7 @@ public class Browser {
             case "Chrome":
                 return new ChromeDriver();
             case "Yandex":
+                System.setProperty("webdriver.chrome.driver", "C:\\WebDriver\\chromedriver_for_yandex\\chromedriver.exe");
                 ChromeOptions options = new ChromeOptions();
                 options.setBinary("C:\\Users\\droga\\AppData\\Local\\Yandex\\YandexBrowser\\Application\\browser.exe");
                 return new ChromeDriver(options);
