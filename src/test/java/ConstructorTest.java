@@ -23,8 +23,10 @@ public class ConstructorTest {
         MainPage mainPage = new MainPage(driver);
 
         mainPage.clickOnButtonSauce(); //клик на кнопку "Соусы"
-        boolean isSauce = mainPage.sauceIsDisplayed();
+        String nameActiveTab = mainPage.getNameActiveTab();
+        Assert.assertEquals("Соусы", nameActiveTab);
 
+        boolean isSauce = mainPage.sauceIsDisplayed();
         Assert.assertTrue("ошибка перехода в раздел соусы", isSauce);
     }
 
@@ -35,8 +37,10 @@ public class ConstructorTest {
         MainPage mainPage = new MainPage(driver);
 
         mainPage.clickOnButtonFilling(); // клик на кнопку "Начинки"
-        boolean isFilling = mainPage.fillingIsDisplayed();
+        String nameActiveTab = mainPage.getNameActiveTab();
+        Assert.assertEquals("Начинки", nameActiveTab);
 
+        boolean isFilling = mainPage.fillingIsDisplayed();
         Assert.assertTrue("ошибка перехода в раздел начинки", isFilling);
     }
 
@@ -48,8 +52,11 @@ public class ConstructorTest {
 
         mainPage.clickOnButtonSauce(); //клик на кнопку "Соусы"
         mainPage.clickOnButtonBun(); //клик на кнопку "Булки"
-        boolean isBun = mainPage.bunIsDisplayed();
 
+        String nameActiveTab = mainPage.getNameActiveTab();
+        Assert.assertEquals("Булки", nameActiveTab);
+
+        boolean isBun = mainPage.bunIsDisplayed();
         Assert.assertTrue("ошибка перехода в раздел булки", isBun);
     }
 

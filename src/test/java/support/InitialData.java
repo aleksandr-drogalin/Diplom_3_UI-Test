@@ -1,9 +1,9 @@
 package support;
 
-public interface InitialData {
+public class InitialData {
 
     //выбора браузера
-    public static final String BROWSER_NAME = "Chrome";
+    public static final String BROWSER_NAME = "chrome";
 
     //URL тестируемого приложения
     public static final String MAIN_PAGE_URL = "https://stellarburgers.nomoreparties.site/";

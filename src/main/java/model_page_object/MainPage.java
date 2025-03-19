@@ -5,7 +5,11 @@ import org.openqa.selenium.*;
 import org.openqa.selenium.support.ui.ExpectedConditions;
 import org.openqa.selenium.support.ui.WebDriverWait;
 import org.openqa.selenium.JavascriptExecutor;
+
+import java.time.Duration;
 import java.util.concurrent.TimeUnit;
+
+import static java.time.Duration.*;
 
 public class MainPage {
 
@@ -35,6 +39,8 @@ public class MainPage {
     private By buttonBun = By.xpath(".//span[@class='text text_type_main-default' and text()='Булки']");
     //изображение булки "Флюоресцентная булка R2-D3"
     private By imageFluoriscentBun = By.xpath(".//img[@alt='Флюоресцентная булка R2-D3']");
+    //активный таб
+    private By activeTab = By.xpath(".//div[@class='tab_tab__1SPyG tab_tab_type_current__2BEPc pt-4 pr-10 pb-4 pl-10 noselect']/span[@class='text text_type_main-default']");
 
     @Step("клик на кнопку \"Личный кабинет\"")
     public void clickOnButtonPersonalRoom() {
@@ -66,9 +72,7 @@ public class MainPage {
     @Step("проверка отображения элемента раздела \"Соусы\"")
     public boolean sauceIsDisplayed() {
         new WebDriverWait(driver, 3).until(ExpectedConditions.visibilityOfElementLocated(imageSauceSpicyX));
-        //прокрутка до элемента
         WebElement elementSauce =driver.findElement(imageSauceSpicyX);
-        ((JavascriptExecutor) driver).executeScript("arguments[0].scrollIntoView();",elementSauce);
         // координаты и размеры элемента
         Rectangle rect = elementSauce.getRect();
         // размеры окна браузера
@@ -88,10 +92,8 @@ public class MainPage {
 
     @Step("проверка отображения элемента раздела \"Начинки\"")
     public boolean fillingIsDisplayed() {
-        driver.manage().timeouts().implicitlyWait(3, TimeUnit.SECONDS);new WebDriverWait(driver, 3).until(ExpectedConditions.visibilityOfElementLocated(imageFillingMeatNotDeathShellfish));
-        //прокрутка до элемента
+        new WebDriverWait(driver, 5).until(ExpectedConditions.visibilityOfElementLocated(imageFillingMeatNotDeathShellfish));
         WebElement elementFilling =driver.findElement(imageFillingMeatNotDeathShellfish);
-        ((JavascriptExecutor) driver).executeScript("arguments[0].scrollIntoView();",elementFilling);
         // координаты и размеры элемента
         Rectangle rect = elementFilling.getRect();
         // размеры окна браузера
@@ -103,6 +105,7 @@ public class MainPage {
                 && rect.getX() + rect.getWidth() <= windowWidth
                 && rect.getY() + rect.getHeight() <= windowHeight;
     }
+
     @Step("клик на кнопку \"Булки\"")
     public void clickOnButtonBun() {
         driver.findElement(buttonBun).click();
@@ -111,9 +114,7 @@ public class MainPage {
     @Step("проверка отображения элемента раздела \"Булки\"")
     public boolean bunIsDisplayed() {
         new WebDriverWait(driver, 3).until(ExpectedConditions.visibilityOfElementLocated(imageFluoriscentBun));
-        //прокрутка до элемента
         WebElement elementBun =driver.findElement(imageFluoriscentBun);
-        ((JavascriptExecutor) driver).executeScript("arguments[0].scrollIntoView();",elementBun);
         // координаты и размеры элемента
         Rectangle rect = elementBun.getRect();
         // размеры окна браузера
@@ -124,5 +125,11 @@ public class MainPage {
                 && rect.getY() >= 0
                 && rect.getX() + rect.getWidth() <= windowWidth
                 && rect.getY() + rect.getHeight() <= windowHeight;
+    }
+
+    @Step ("получение названия активного таба")
+    public String getNameActiveTab() {
+        driver.manage().timeouts().implicitlyWait(3, TimeUnit.SECONDS);
+        return driver.findElement(activeTab).getText();
     }
 }
